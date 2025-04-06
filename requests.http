@@ -4,7 +4,16 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-    "email": "fidel@gmail.com",
+    "email": "fidelisoti@gmail.com",
+    "password": "password1234"
+}
+
+### Log in user
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "fidelisoti@gmail.com",
     "password": "password1234"
 }
 
@@ -21,7 +30,7 @@ GET http://localhost:3000/auth?email=pabloes@gmail.com
 DELETE http://localhost:3000/auth/1
 
 ### Update a new user email.
-PATCH http://localhost:3000/auth/45
+PATCH http://localhost:3000/auth/3
 content-type: application/json
 
 {
