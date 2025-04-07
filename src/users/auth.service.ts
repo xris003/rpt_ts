@@ -30,6 +30,7 @@ export class AuthService {
         const user = await this.usersService.create(email, result)
 
         // return the user
+        return user
     }
 
     async signin(email: string, password: string) {
