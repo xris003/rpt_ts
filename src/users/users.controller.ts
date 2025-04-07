@@ -1,29 +1,45 @@
-import { Body, Controller, Post, Get, Patch, Delete, Param, Query, NotFoundException, Session, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, Get, Patch, Delete,
+     Param, Query, NotFoundException, Session,
+     ClassSerializerInterceptor, UseInterceptors 
+    } from '@nestjs/common';
 import { CreateUserDto } from '../users/dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
-// import { Session } from 'inspector/promises';
+import { CurrentUser } from './decorators/current-user.decorator';
+//import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { User } from './user.entity';
 
 
 @Controller('auth')
 @Serialize(UserDto)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
         private userService: UsersService,
         private authService: AuthService
     ) {}
 
+    // @Get('/getme')
+    // getMe(@Session() session: any) {
+    //     const user = this.userService.findOne(session.userId);
+    //     if (!user) {
+    //         throw new NotFoundException('kindly sign in')
+    //     }
+    //     return user;
+    // }
+
     @Get('/getme')
-    getMe(@Session() session: any) {
-        const user = this.userService.findOne(session.userId);
-        if (!user) {
-            throw new NotFoundException('kindly sign in')
-        }
+    getMe(@CurrentUser() user: User) {
+        // const user = this.userService.findOne(session.userId);
+        // if (!user) {
+        //     throw new NotFoundException('kindly sign in')
+        // }
         return user;
     }
+
 
     
     @Post('/signout')
